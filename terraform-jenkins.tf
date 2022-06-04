@@ -14,7 +14,7 @@ module "ec2_instance" {
   user_data              = <<EOF
 #!/bin/bash
 
-sudo hostnamectl set-hostname ${var.server_name}
+sudo hostnamectl set-hostname jenkins
 sudo su - ubuntu
 sudo apt update
 sudo apt-get install default-jdk -y
