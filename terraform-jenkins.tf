@@ -5,15 +5,16 @@ provider "aws" {
 module "ec2_instance" {
   source                 = "terraform-aws-modules/ec2-instance/aws"
   version                = "~> 3.0"
-  for_each               = toset(["DevSecOp"])
+  for_each               = toset(["Dev"])
   name                   = "Jenkins-${each.key}"
   ami                    = "ami-03a0c45ebc70f98ea"
   instance_type          = "t2.medium"
-  key_name               = "EtechDevOpsClass-KeyPair"
+  key_name               = "mgnkeypair"
+  vpc_security_group_ids = ["sg-0cf366cae8c62a653"]
   user_data              = <<EOF
 #!/bin/bash
 
-sudo hostnamectl set-hostname jenkins
+sudo hostnamectl set-hostname ${var.server_name}
 sudo su - ubuntu
 sudo apt update
 sudo apt-get install default-jdk -y

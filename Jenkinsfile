@@ -3,10 +3,10 @@ pipeline {
    stages {
         stage('Checkout') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], 
-                extensions: [], 
-                userRemoteConfigs: [[credentialsId: 'e1ca9299-b62b-4289-a477-5c73c0bab0eb', 
-                url: 'https://github.com/etech-project/jenkins.git']]])
+               checkout([$class: 'GitSCM', branches: [[name: '*/main']], 
+               extensions: [], 
+               userRemoteConfigs: [[credentialsId: 'efbdd6c7-9b42-475f-bbf7-ee614ef9f069', 
+               url: 'https://github.com/emma-deVops/jekins-setup.git']]])
             }
         }     
     }
