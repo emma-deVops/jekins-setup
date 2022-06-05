@@ -3,10 +3,10 @@ pipeline {
    stages {
         stage('Checkout') {
             steps {
-               checkout([$class: 'GitSCM', branches: [[name: '*/main']], 
-               extensions: [], 
-               userRemoteConfigs: [[credentialsId: 'efbdd6c7-9b42-475f-bbf7-ee614ef9f069', 
-               url: 'https://github.com/emma-deVops/jekins-setup.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/dev']], 
+                extensions: [], 
+                userRemoteConfigs: [[credentialsId: '43ba96fd-80d1-420f-93fc-7f3e5154f064', 
+                url: 'https://github.com/emma-deVops/jekins-setup.git']]])
             }
         } 
         stage ("terraform init") {
