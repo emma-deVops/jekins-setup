@@ -3,15 +3,15 @@ provider "aws" {
 }
 
 module "ec2_instance" {
-  source                 = "terraform-aws-modules/ec2-instance/aws"
-  version                = "~> 3.0"
-  for_each               = toset(["Server"])
-  name                   = "Jenkins-${each.key}"
-  ami                    = "ami-0eea504f45ef7a8f7"
-  instance_type          = "t2.small"
-  key_name               = "myAnsibleKey"
-  # vpc_security_group_ids = ["sg-0cf366cae8c62a653"]
-  user_data              = <<EOF
+  source               = "terraform-aws-modules/ec2-instance/aws"
+  version              = "~> 3.0"
+  for_each             = toset(["Server"])
+  name                 = "Jenkins-${each.key}"
+  ami                  = "ami-0eea504f45ef7a8f7"
+  instance_type        = "t2.small"
+  key_name             = "myAnsibleKey"
+  iam_instance_profile = aws_iam_instance_profile.test_profile.name
+  user_data            = <<EOF
 #!/bin/bash
 
 sudo hostnamectl set-hostname jenkins
@@ -33,9 +33,3 @@ sudo apt-get update && sudo apt-get install terraform
 
   EOF
 }
- # Ubuntu  18.04 installation
-# wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
-# echo deb http://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list
-# wget https://pkg.jenkins.io/debian-stable/binary/jenkins_2.332.3_all.deb
-# sudo dpkg -i jenkins_2.332.3_all.deb
-# sudo apt update
